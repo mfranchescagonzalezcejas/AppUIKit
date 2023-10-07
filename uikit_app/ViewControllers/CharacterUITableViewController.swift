@@ -20,8 +20,6 @@ enum SortStyle {
 
 
 class CharacterCell: UITableViewCell{
-    //    @IBOutlet weak var characterImage: UIImageView!
-    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var characterImage: UIImageView!
     @IBOutlet weak var roleLabel: UILabel!
@@ -29,7 +27,60 @@ class CharacterCell: UITableViewCell{
 
 class CharacterDetailViewController: UIViewController{
     var dataSource: CharacterStore = CharacterStore()
-
+    var activityIndicator = UIActivityIndicatorView()
+    var refreshControl = UIRefreshControl()
+    var overlayView = UIView()
+    
+    func setupActivityIndicator() {
+        // Centrar el activity indicator horizontalmente
+        activityIndicator.center.x = view.center.x
+        
+        // Posicionar el activity indicator cerca del borde superior
+        activityIndicator.frame.origin.y = 20
+        
+        // Configurar el activity indicator
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = .large
+        
+        // Agregar el activity indicator a la vista
+        view.addSubview(activityIndicator)
+    }
+    
+    func setupOverlayView() {
+        overlayView.frame = self.view.bounds
+        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.addSubview(overlayView)
+        overlayView.isHidden = true
+    }
+    
+    @objc func refreshData() {
+        // Mostrar la vista de superposición y desactivar la interacción del usuario
+        overlayView.isHidden = false
+        self.view.isUserInteractionEnabled = false
+        
+        // Iniciar la animación del activity indicator
+        activityIndicator.startAnimating()
+        
+        // Cargar los datos de la API
+        dataSource.loadCharacterData(character: character) {
+            DispatchQueue.main.async {
+                self.reloadData()
+                self.activityIndicator.stopAnimating()
+                
+                // Ocultar la vista de superposición y permitir la interacción del usuario
+                self.overlayView.isHidden = true
+                self.view.isUserInteractionEnabled = true
+                
+                // Detener la animación del refresh control
+                self.refreshControl.endRefreshing()
+            }
+        }
+    }
+    
+    func setupRefreshControll(){
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+    }
+    
     let character: Character
     
     
@@ -45,19 +96,18 @@ class CharacterDetailViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        // Configurar el activity indicator
+        setupActivityIndicator()
         
-        nameLabel.text = character.name
-        roleLabel.text = character.role
-        if let imageData = character.imageData {
-            characterImage.image = UIImage(data: imageData)
-        }
+        // Configurar el refresh control
+        setupRefreshControll()
         
-//      Display the nicknames and about data
-        nicknameLabel.text = "Nicknames: \(character.nicknames?.joined(separator: ", ") ?? "none")"
-        aboutTextView.text = character.about
+        // Configurar la vista de superposición
+        setupOverlayView()
+        
+        loadDataCharacter(character: character)
     }
-
+    
     
     
     
@@ -66,10 +116,42 @@ class CharacterDetailViewController: UIViewController{
     }
     
     init?(coder: NSCoder, character: Character) {
-        dataSource.loadCharacterData(character: character)
         self.character = character
         super.init(coder: coder)
     }
+    
+    func reloadData(){
+        nameLabel.text = character.name
+        roleLabel.text = character.role
+        if let imageData = character.imageData {
+            characterImage.image = UIImage(data: imageData)
+        }
+        
+        //      Display the nicknames and about data
+        if let nicknames = character.nicknames, !nicknames.joined(separator: ", ").isEmpty {
+            nicknameLabel.text = nicknames.joined(separator: ", ")
+        } else {
+            nicknameLabel.text = "none"
+        }
+        
+        aboutTextView.text = character.about
+    }
+    
+    func loadDataCharacter(character: Character){
+        // Iniciar la animación del activity indicator
+        activityIndicator.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        
+        // Cargar los datos de la API
+        dataSource.loadCharacterData(character: character) {
+            DispatchQueue.main.async {
+                self.reloadData()
+                self.activityIndicator.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+            }
+        }
+    }
+    
 }
 
 
@@ -92,7 +174,7 @@ class CharaterUITableViewController: UITableViewController {
         // Agregar el activity indicator a la vista
         view.addSubview(activityIndicator)
     }
-
+    
     
     func setupRefreshControll(){
         let refreshControl = UIRefreshControl()
@@ -177,7 +259,7 @@ class CharaterUITableViewController: UITableViewController {
         cell.nameLabel.text = character.name
         cell.roleLabel.text = character.role
         cell.characterImage.image = UIImage(data: character.imageData!)
-
+        
         
         return cell
     }

@@ -128,24 +128,31 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NickNames: SoulKing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qPk-TJ-luh" userLabel="Niknames">
-                                        <rect key="frame" x="0.0" y="80" width="188.33333333333334" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nicknames: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qPk-TJ-luh" userLabel="Nicknames">
+                                        <rect key="frame" x="0.0" y="80" width="107.66666666666667" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SoulKing, ..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jiX-NC-RDP" userLabel="NicknamesLabel">
+                                        <rect key="frame" x="0.0" y="114" width="102.66666666666667" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hLi-ak-tUB" userLabel="About:">
-                                        <rect key="frame" x="0.0" y="114" width="53" height="24"/>
+                                        <rect key="frame" x="0.0" y="148" width="53" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="do4-KO-983">
-                                        <rect key="frame" x="0.0" y="148" width="353" height="284"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="do4-KO-983">
+                                        <rect key="frame" x="0.0" y="182" width="353" height="250"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -155,7 +162,7 @@
                                     <constraint firstItem="do4-KO-983" firstAttribute="trailing" secondItem="dOr-Zp-VIy" secondAttribute="trailingMargin" id="HFG-7s-tvA"/>
                                 </constraints>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="161005" translatesAutoresizingMaskIntoConstraints="NO" id="JqN-gv-m29" userLabel="characterImage">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="161005" highlightedImage="161005" translatesAutoresizingMaskIntoConstraints="NO" id="JqN-gv-m29" userLabel="characterImage">
                                 <rect key="frame" x="88.666666666666686" y="103" width="216" height="236"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="236" id="rGZ-gs-A8S"/>
@@ -179,7 +186,7 @@
                         <outlet property="aboutTextView" destination="do4-KO-983" id="1Ve-6S-AOF"/>
                         <outlet property="characterImage" destination="JqN-gv-m29" id="yeO-cN-A9w"/>
                         <outlet property="nameLabel" destination="OSC-bs-Fom" id="cq4-CF-7B6"/>
-                        <outlet property="nicknameLabel" destination="qPk-TJ-luh" id="0Vn-tS-ufe"/>
+                        <outlet property="nicknameLabel" destination="jiX-NC-RDP" id="QAa-0U-bUJ"/>
                         <outlet property="roleLabel" destination="oLv-4d-k6f" id="ASu-re-gRk"/>
                     </connections>
                 </viewController>

@@ -64,7 +64,7 @@ class CharacterStore {
         
     }
     
-    func loadCharacterData(character: Character){
+    func loadCharacterData(character: Character, completion: @escaping () -> Void){
         let url = URL(string: "https://api.jikan.moe/v4/characters/\(character.id)")!
         var about: String = ""
         var nicknames: [String] = []
@@ -76,8 +76,8 @@ class CharacterStore {
                 let characterData = json["data"] as! [String: Any]
                 
                 // Access the character data
-                about = (characterData["about"] as? String)!
-                nicknames = (characterData["nicknames"] as? [String])!
+                about = (characterData["about"] as? String) ?? "None"
+                nicknames = (characterData["nicknames"] as? [String]) ?? ["None"]
                 
                 // ...
                 character.about = about
@@ -85,6 +85,8 @@ class CharacterStore {
                 
                 print(about)
                 print(nicknames)
+                
+                completion()
                 
             } catch {
                 print("Error al obtener los datos de la API")
